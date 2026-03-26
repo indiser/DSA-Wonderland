@@ -3,6 +3,9 @@
 #include<unordered_map>
 using namespace std;
 
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
 class Node
 {
     public:
@@ -23,20 +26,57 @@ class Node
 class Solution
 {
     public:
+        // void Traverse(Node *head)
+        // {
+        //     if(!head) return;
+            
+        //     cout << head->val << " ";
+            
+        //     if(head->child) {
+        //         Traverse(head->child);
+        //     }
+            
+        //     Traverse(head->next);
+        // }
+
         void Traverse(Node *head)
         {
-            if(!head) return;
-            
-            cout << head->val << " ";
-            
-            if(head->child) {
-                Traverse(head->child);
+            while(head != NULL)
+            {
+                cout << head->val << " ";
+                head = head->next;
             }
-            
-            Traverse(head->next);
         }
         Node *flatten(Node *head)
         {
+            if (!head) return head;
+
+            Node *curr=head;
+
+            while(curr != NULL)
+            {
+                if(curr->child != NULL)
+                {
+                    Node *next=curr->next;
+                    curr->next=flatten(curr->child);
+                    curr->next->prev=curr;
+                    curr->child=NULL;
+
+                    while(curr->next != NULL)
+                    {
+                        curr=curr->next;
+                    }
+
+                    if(next != NULL)
+                    {
+                        curr->next=next;
+                        next->prev=curr;
+                    }
+                }
+                curr=curr->next;
+            }
+
+            return head;
             
         }
 };
@@ -78,7 +118,9 @@ int main()
     n8->child = n11; // 8 points to 11
 
     Solution s;
-    s.Traverse(n1);
+    Node *head=s.flatten(n1);
+    s.Traverse(head);
+
     
     return 0;
 }
