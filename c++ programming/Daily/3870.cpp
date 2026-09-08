@@ -9,27 +9,11 @@ using namespace std;
 class Solution
 {
     public:
-        int lengthNumber(int num)
-        {
-            int len = 0;
-            while(num != 0)
-            {
-                num /= 10;
-                len++;
-            }
-            return len;
-        }
         int countCommas(int n)
         {
-            int len = lengthNumber(n);
-            
-            if(len < 4) return 0;
-
+            if(n < 1000) return 0;
             int commas = 1;
-            for (int i = 1000; i < n; i++)
-            {
-                commas++;
-            }
+            for (int i = 1000; i < n; i++) commas++;
             return commas;
         }
 };
