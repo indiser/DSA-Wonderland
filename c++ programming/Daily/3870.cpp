@@ -4,7 +4,7 @@
 #include<unordered_map>
 using namespace std;
 
-// Time Complexity: O(n)
+// Time Complexity: O(1)
 // Space Complexity: O(1)
 class Solution
 {
@@ -12,9 +12,7 @@ class Solution
         int countCommas(int n)
         {
             if(n < 1000) return 0;
-            int commas = 1;
-            for (int i = 1000; i < n; i++) commas++;
-            return commas;
+            return (n - 999);
         }
 };
 
